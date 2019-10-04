@@ -22,8 +22,8 @@ jwt.init_app(app)
 
 CORS(app)
 
-from project.api.auth.views import auth_blueprint
-app.register_blueprint(auth_blueprint)
+from project.api.image_processing.views import image_processing_blueprint
+app.register_blueprint(image_processing_blueprint)
 
 
 @app.cli.command('test')
