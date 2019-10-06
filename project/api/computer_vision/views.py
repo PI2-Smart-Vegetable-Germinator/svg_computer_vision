@@ -6,16 +6,22 @@ from flask import Blueprint
 from flask import jsonify
 from flask import request
 
-from project.api.image_processing.s3_utils import S3Utils
+from project.api.computer_vision.s3_utils import S3Utils
 from werkzeug.utils import secure_filename
 
 import json
 
-image_processing_blueprint = Blueprint('image_processing', __name__)
-CORS(image_processing_blueprint)
+computer_vision_blueprint = Blueprint('computer_vision', __name__)
+CORS(computer_vision_blueprint)
 
-@image_processing_blueprint.route('/api/submit_image', methods=['POST'])
-def image_processing():
+@computer_vision_blueprint.route('/api/ping', methods=['GET'])
+def ping():
+    return jsonify({
+        'response': 'pong!'
+    }), 200
+
+@computer_vision_blueprint.route('/api/submit_image', methods=['POST'])
+def computer_vision():
     if 'file' not in request.files:
         return jsonify({
             'response': 'Image not found!',

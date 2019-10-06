@@ -22,8 +22,8 @@ jwt.init_app(app)
 
 CORS(app)
 
-from project.api.image_processing.views import image_processing_blueprint
-app.register_blueprint(image_processing_blueprint)
+from project.api.computer_vision.views import computer_vision_blueprint
+app.register_blueprint(computer_vision_blueprint)
 
 
 @app.cli.command('test')

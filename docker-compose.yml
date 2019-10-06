@@ -13,8 +13,6 @@ services:
       - FLASK_ENV=development
       - APP_SETTINGS=project.config.DevConfig
       - SECRET_KEY=supersecretdevonlykey
-      - SVG_MONITORING_BASE_URI=http://svg_monitoring:5001
-      - SVG_AUTH_BASE_URI=http://svg_auth:5000
       - S3_ACCESS_KEY=${S3_ACCESS_KEY}
       - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
       - S3_BUCKET_NAME=${S3_BUCKET_NAME}
