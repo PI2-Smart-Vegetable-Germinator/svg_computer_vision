@@ -27,10 +27,11 @@ def computer_vision():
             'response': 'Image not found!',
         }), 404
     file = request.files['file']
-    filename = secure_filename(file.filename)
     s3 = S3Utils()
-    s3.upload_to_s3(file)
+    post_data = request.json['planting_id']
+    filename = post_data + '.jpg'
+    s3.upload_to_s3(file, filename)
     return jsonify({
         'response': 'Image found!',
-        'filename' : file.filename
+        'filename' : filename
     }), 200

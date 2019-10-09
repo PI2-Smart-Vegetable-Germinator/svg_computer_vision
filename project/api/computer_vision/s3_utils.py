@@ -11,12 +11,12 @@ class S3Utils:
                 "S3_SECRET_ACCESS_KEY")
             )
 
-    def upload_to_s3(self, file):
+    def upload_to_s3(self, file, filename):
         try:
             self.instance.upload_fileobj(
                 file,
                 os.environ.get("S3_BUCKET_NAME"),
-                file.filename
+                filename
             )
         except Exception as e:
             return e
