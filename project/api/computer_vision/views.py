@@ -28,8 +28,8 @@ def computer_vision():
         }), 404
     file = request.files['file']
     s3 = S3Utils()
-    post_data = request.json['planting_id']
-    filename = post_data + '.jpg'
+    post_data = json.loads(request.form['json'])
+    filename = '%s.jpg' % post_data['planting_id']
     s3.upload_to_s3(file, filename)
     return jsonify({
         'response': 'Image found!',
