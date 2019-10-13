@@ -20,3 +20,8 @@ class S3Utils:
             )
         except Exception as e:
             return e
+
+    def get_file(self, filename):
+        file = self.instance.get_object(
+            Bucket=os.environ.get("S3_BUCKET_NAME"), Key=filename)
+        return file

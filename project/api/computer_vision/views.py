@@ -29,6 +29,25 @@ def computer_vision():
         }), 404
     file = request.files['file']
 
+    s3 = S3Utils()
+    post_data = json.loads(request.form['json'])
+    filename = '%s.jpg' % post_data['planting_id']
+    s3.upload_to_s3(file, filename)
+
+    response = {
+        'response': 'Image submitted!',
+        'filename' : filename
+    }
+    return jsonify(response), 200
+
+@computer_vision_blueprint.route('/api/process_image_data', methods=['POST'])
+def process_image_data():
+    if 'file' not in request.files:
+        return jsonify({
+            'response': 'Image not found!',
+        }), 404
+    file = request.files['file']
+
     ip = ImageProcessing()
     img = ip.image_treatment(file)
     green_percentage = ip.green_percentage(img)
@@ -36,10 +55,8 @@ def computer_vision():
     if(ip.green_percentage(img)):
         sprouted_seedlings = ip.count_sprouted_seedlings(img)
 
-    s3 = S3Utils()
     post_data = json.loads(request.form['json'])
     filename = '%s.jpg' % post_data['planting_id']
-    s3.upload_to_s3(file, filename)
 
     response = {
         'response': 'Image submitted!',
