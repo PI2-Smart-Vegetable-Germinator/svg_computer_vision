@@ -7,6 +7,7 @@ from flask import jsonify
 from flask import request
 
 from project.api.computer_vision.s3_utils import S3Utils
+from project.api.computer_vision.image_processing import ImageProcessing
 from werkzeug.utils import secure_filename
 
 import json
@@ -27,11 +28,24 @@ def computer_vision():
             'response': 'Image not found!',
         }), 404
     file = request.files['file']
+
+    ip = ImageProcessing()
+    img = ip.image_treatment(file)
+    green_percentage = ip.green_percentage(img)
+    sprouted_seedlings = 0
+    if(ip.green_percentage(img)):
+        sprouted_seedlings = ip.count_sprouted_seedlings(img)
+
     s3 = S3Utils()
     post_data = json.loads(request.form['json'])
     filename = '%s.jpg' % post_data['planting_id']
     s3.upload_to_s3(file, filename)
-    return jsonify({
-        'response': 'Image found!',
+
+    response = {
+        'response': 'Image submitted!',
+        'sprouted_seedlings': sprouted_seedlings,
+        'green_percentage': green_percentage,
         'filename' : filename
-    }), 200
+    }
+    print(response)
+    return jsonify(response), 200
