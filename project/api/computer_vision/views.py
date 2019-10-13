@@ -10,7 +10,7 @@ from project.api.computer_vision.s3_utils import S3Utils
 from project.api.computer_vision.image_processing import ImageProcessing
 from werkzeug.utils import secure_filename
 
-import json
+import json, requests
 
 computer_vision_blueprint = Blueprint('computer_vision', __name__)
 CORS(computer_vision_blueprint)
@@ -58,11 +58,11 @@ def process_image_data():
     post_data = json.loads(request.form['json'])
     filename = '%s.jpg' % post_data['planting_id']
 
-    response = {
-        'response': 'Image submitted!',
+    data = {
         'sprouted_seedlings': sprouted_seedlings,
         'green_percentage': green_percentage,
-        'filename' : filename
+        'planting_id' : post_data['planting_id']
     }
-    print(response)
-    return jsonify(response), 200
+
+    response = requests.post('%s/api/image_processing_results' % os.getenv('SVG_GATEWAY_URI'), json=data)
+    return jsonify(response.json()), response.status_code
