@@ -2,9 +2,7 @@ import os
 
 from flask_cors import CORS
 
-from flask import Blueprint
-from flask import jsonify
-from flask import request
+from flask import Blueprint, jsonify, request, send_file
 
 from project.api.computer_vision.s3_utils import S3Utils
 from project.api.computer_vision.image_processing import ImageProcessing
@@ -66,3 +64,12 @@ def process_image_data():
 
     response = requests.post('%s/api/image_processing_results' % os.getenv('SVG_GATEWAY_URI'), json=data)
     return jsonify(response.json()), response.status_code
+
+@computer_vision_blueprint.route('/api/get-image', methods=['POST'])
+def get_image():
+    data = request.get_json()
+    s3 = S3Utils()
+    imagename = str(data['machine_id']) + '.jpg'
+    image = s3.get_file(imagename)
+
+    return image['Body'].read(), 200

@@ -15,10 +15,9 @@ services:
       - FLASK_ENV=development
       - APP_SETTINGS=project.config.DevConfig
       - SECRET_KEY=supersecretdevonlykey
-      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
-      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
-      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
       - SVG_GATEWAY_URI=http://svg_gateway:5000
+    env_file:
+    - .env
     networks:
       - svg_shared
 networks:
