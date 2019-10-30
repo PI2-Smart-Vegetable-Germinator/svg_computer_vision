@@ -17,7 +17,7 @@ services:
       - SECRET_KEY=supersecretdevonlykey
       - SVG_GATEWAY_URI=http://svg_gateway:5000
     env_file:
-    - project/.env
+    - .env
     networks:
       - svg_shared
 networks:
