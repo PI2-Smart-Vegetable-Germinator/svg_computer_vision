@@ -26,6 +26,7 @@ class ImageProcessing:
         Z = img.reshape((-1,3))
 
         img = img[89:345, 93:570]
+        Z = img.reshape((-1,3))
 
         # convert to np.float32
         Z = np.float32(Z)
