@@ -4,7 +4,7 @@ import cv2
 class ImageProcessing:
     def green_percentage(self, img):
         green = [120, 128, 85]
-        threshold = 50
+        threshold = 30
         boundaries = [([green[2] - threshold, green[1] - threshold, green[0] - threshold],
                 [green[2] + threshold, green[1] + threshold, green[0] + threshold])]
 
