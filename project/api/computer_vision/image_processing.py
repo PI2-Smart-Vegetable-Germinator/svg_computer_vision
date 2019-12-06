@@ -25,7 +25,7 @@ class ImageProcessing:
         img = cv2.imdecode(img_array, 1)
         Z = img.reshape((-1,3))
 
-        img = img[89:345, 93:570]
+        img = img[140:420, 55:575]
         Z = img.reshape((-1,3))
 
         # convert to np.float32
