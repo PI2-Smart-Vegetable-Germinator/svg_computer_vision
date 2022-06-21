@@ -12,6 +12,6 @@ requests==2.22.0
 boto3==1.9.242
 Werkzeug==0.16.0
 botocore==1.12.242
-numpy==1.17.2
+numpy==1.22.0
 opencv-python==4.1.1.26
 Pillow==6.2.0
